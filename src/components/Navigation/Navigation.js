@@ -7,22 +7,14 @@ function Navigation() {
     <>
       <nav>
         <ul className={s.List}>
-          <li className={s.login}>
+          <li>
             <NavLink to="/" className={s.Base}>
               <b>Главная</b>
-            </NavLink>
-          
-            <NavLink to="/" className={s.Base}>
-              <b>Заметки</b>
             </NavLink>
             </li>
             <li>
             <NavLink to="/" className={s.Base}>
-              <b>Регистрация</b>
-            </NavLink>
-          
-            <NavLink to="/login" className={s.Base}>
-              <b>Логин</b>
+              <b>Контакты</b>
             </NavLink>
           </li>
         </ul>

@@ -1,4 +1,5 @@
-import React from 'react';
+import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import AppBar from 'components/AppBar';
 import Form from './components/form';
 import Filter from './components/filter';
