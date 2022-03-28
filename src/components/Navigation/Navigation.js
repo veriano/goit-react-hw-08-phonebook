@@ -11,9 +11,8 @@ function Navigation() {
             <NavLink to="/" className={s.Base}>
               <b>Главная</b>
             </NavLink>
-            </li>
-            <li>
-            <NavLink to="/" className={s.Base}>
+            
+            <NavLink to="/contacts" className={s.Base}>
               <b>Контакты</b>
             </NavLink>
           </li>
