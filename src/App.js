@@ -1,4 +1,5 @@
 import React from 'react';
+import AppBar from 'components/AppBar';
 import Form from './components/form';
 import Filter from './components/filter';
 import ContactList from './components/contacts-list';
@@ -12,6 +13,8 @@ export default function App() {
 
   return (
     <div>
+      <AppBar />
+
       <Form contacts={ contacts }/>
 
       <Filter />

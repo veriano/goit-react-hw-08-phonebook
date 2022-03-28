@@ -1,11 +1,43 @@
 import contacts from './contacts/reducers';
+import combineReducers from './contacts/reducers';
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { contactApi } from './contacts/contactsSlice';
+import {
+  persistStore,
+  persistReducer,
+  // FLUSH,
+  // REHYDRATE,
+  // PAUSE,
+  // PERSIST,
+  // PURGE,
+  // REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+  key: 'contacts',
+  storage,
+  blacklist: ['filter'],
+};
+
+// const middleware = [
+//   getDefaultMiddleware({
+//     serializableCheck: {
+//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//     },
+//   }),
+//   // logger,
+// ];
+
+const rootReducer = combineReducers;
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
+    persistedReducer,
     contacts,
     [contactApi.reducerPath]: contactApi.reducer,
   },
@@ -13,6 +45,9 @@ export const store = configureStore({
     getDefaultMiddleware().concat(contactApi.middleware),
 })
 
+const persistor = persistStore(store);
 
 setupListeners(store.dispatch)
+
+export { store, persistor };
 
