@@ -8,7 +8,7 @@ function AuthNav () {
       <nav>
         <ul className={s.List}>
             <li>
-            <NavLink to="/" className={s.Base}>
+            <NavLink to="/registration" className={s.Base}>
               <b>Регистрация</b>
             </NavLink>
                   </li>

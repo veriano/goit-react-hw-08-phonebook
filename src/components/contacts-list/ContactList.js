@@ -2,9 +2,14 @@ import PropTypes from 'prop-types';
 import s from './contactsList-styles.module.css';
 import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/contacts/selectors';
+import { useFetchContactsQuery, useDeleteContactMutation } from  'redux/contacts/contactsSlice';
 
 
-export default function ContactList({ contacts, onDeleteContact }) {
+
+export default function ContactList() {
+  const { data: contacts } = useFetchContactsQuery();
+  const [ deleteContact] = useDeleteContactMutation();
+
   const filter = useSelector(getFilter);
 
    const getVisibleContacts = () => {
@@ -26,7 +31,7 @@ export default function ContactList({ contacts, onDeleteContact }) {
             </p>
             <button
               type="button"
-              onClick={() => onDeleteContact(id)}
+              onClick={() => deleteContact(id)}
               className={s.btn}
             >
               Delete

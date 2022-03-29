@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import Notiflix from 'notiflix';
 import { useAddContactMutation } from 'redux/contacts/contactsSlice';
 import s from './form-styles.module.css';
+import { useFetchContactsQuery } from  'redux/contacts/contactsSlice';
 
 
-export default function Form({ contacts }) {
+
+export default function Form() {
+  const { data: contacts } = useFetchContactsQuery();
+
   const [addContact] = useAddContactMutation();
 
   const [name, setName] = useState('');
