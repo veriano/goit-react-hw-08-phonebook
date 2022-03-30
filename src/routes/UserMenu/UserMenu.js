@@ -1,16 +1,19 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from 'redux/auth/auth-operations';
 import s from './UserMenu.module.css';
 
 function UserMenu() {
+    const dispatch = useDispatch();
+
     return (
         <>
             <form>
                 <label className={s.Base}>
-                    email
-                    <input type='email' name='email' placeholder='your email'/>
+                    Почта
+                    <input type='email' name='email' placeholder='введите вашу почту' required/>
                 </label>
-                <button className={s.Base} type='submit'>Logout</button>
+                <button className={s.Base} type='button' onClick={ () => dispatch(logout()) } >Выйти</button>
             </form>
         </>
    ) 

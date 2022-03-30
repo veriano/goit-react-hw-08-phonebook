@@ -28,7 +28,6 @@ const persistConfig = {
 //       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 //     },
 //   }),
-//   // logger,
 // ];
 
 const rootReducer = combineReducers;
