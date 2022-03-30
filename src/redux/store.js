@@ -19,6 +19,7 @@ const persistConfig = {
   key: 'contacts',
   storage,
   blacklist: ['filter'],
+  whitelist: ['token'],
 };
 
 // const middleware = [

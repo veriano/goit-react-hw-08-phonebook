@@ -1,73 +1,67 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-// import Notiflix from 'notiflix';
-// import { useAddContactMutation } from 'redux/contacts/contactsSlice';
 import s from './login.module.css';
-// import { useFetchContactsQuery } from  'redux/contacts/contactsSlice';
+import { login } from 'redux/auth/auth-operations';
 
 
-
-export default function Form() {
-//   const { data: users } = useFetchContactsQuery();
-
-//   const [addContact] = useAddContactMutation();
+export default function Login() {
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const changeEmail = event => {
-    setEmail(event.target.value);
-  };
-
-  const changePassword = event => {
-    setPassword(event.target.value);
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'email':
+        return setEmail(value);
+      case 'password':
+        return setPassword(value);
+      default:
+        return;
+    }
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    //   const checkedForEmail = users.find(user => user.email !== user.email);
-    //   const checkForPassword = users.find(user => user.password !== user.password);
-
-    // if (checkedForEmail && checkForPassword) {
-    //   Notiflix.Notify.info(`Вы не правильно ввели логин или пароль`);
-    //   setEmail('');
-    //   setPassword('');
-    //   return;
-    // }
-
+    dispatch(login({ email, password }));
     setEmail('');
     setPassword('');
 
   }
 
   return (
-    <form onSubmit={handleSubmit} className={s.form}>
-      <label className={s.label}>Почта</label>
-      <input
-        className={s.input}
-        type="email"
-        name="email"
-        required
-        value={email}
-        onChange={changeEmail}
-      />
-      <label className={s.label}>Пароль</label>
-      <input
-        className={s.input}
-        type="password"
-        name="password"
-        required
-        value={password}
-        onChange={changePassword}
-      />
-      <button type="submit" className={s.btn}>
-        Войти
-      </button>
-    </form>
+    <div>
+     <h1>Страница логина</h1> 
+      <form onSubmit={handleSubmit} className={s.form}>
+        <label className={s.label}>Почта</label>
+        <input
+          className={s.input}
+          type="email"
+          name="email"
+          required
+          value={email}
+          onChange={handleChange}
+        />
+        <label className={s.label}>Пароль</label>
+        <input
+          className={s.input}
+          type="password"
+          name="password"
+          required
+          value={password}
+          onChange={handleChange}
+        />
+        <button type="submit" className={s.btn}>
+          Войти
+        </button>
+        </form>
+
+    </div>
   );
 }
 
-Form.propTypes = {
+Login.propTypes = {
   onSubmit: PropTypes.func,
   contacts: PropTypes.arrayOf(PropTypes.object),
 };

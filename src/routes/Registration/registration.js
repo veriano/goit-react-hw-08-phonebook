@@ -1,54 +1,42 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import Notiflix from 'notiflix';
-// import { useAddContactMutation } from 'redux/contacts/contactsSlice';
 import s from './registration.module.css';
-// import { useFetchContactsQuery } from  'redux/contacts/contactsSlice';
+import { register } from 'redux/auth/auth-operations';
 
-export default function Form() {
-//   const { data: contacts } = useFetchContactsQuery();
+export default function Registration() {
 
-//   const [addContact] = useAddContactMutation();
-
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const changeName = event => {
-    setName(event.target.value);
-  };
-
-  const changeEmail = event => {
-    setEmail(event.target.value);
-  };
-    
-  const changePassword = event => {
-    setPassword(event.target.value);
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        return setName(value);
+      case 'email':
+        return setEmail(value);
+      case 'password':
+        return setPassword(value);
+      default:
+        return;
+    }
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    // const checkedForName = users.find(user => name.toLowerCase() === user.name.toLowerCase());
-
-    // if (checkedForName) {
-    //   Notiflix.Notify.info(`Пользователь с именем ${name.toLowerCase()} уже зарегистрирован`);
-    //     setName('');
-    //     setEmail('');
-    //     setPassword('');
-    //   return;
-    // }
-
-    // createUser({ name, email, password })
+    dispatch(register({ name, email, password }));
       
     setName('');
     setEmail('');
     setPassword('');
-      
-
-    Notiflix.Notify.success('Вы успешно зарегистрировались!');
   }
 
   return (
+  <div>
+    <h1>Страница регистрации</h1>
+
     <form onSubmit={handleSubmit} className={s.form}>
       <label className={s.label}>Имя</label>
       <input
@@ -59,7 +47,7 @@ export default function Form() {
         title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
         required
         value={name}
-        onChange={changeName}
+        onChange={handleChange}
       />
       <label className={s.label}>Почта</label>
       <input
@@ -68,7 +56,7 @@ export default function Form() {
         name="email"
         required
         value={email}
-        onChange={changeEmail}
+        onChange={handleChange}
        />
        <label className={s.label}>Пароль</label>
        <input
@@ -77,16 +65,18 @@ export default function Form() {
         name="password"
         required
         value={password}
-        onChange={changePassword}
+        onChange={handleChange}
        />
        <button type="submit" className={s.btn}>
-        Подтвердить
+        Зарегистрироваться
        </button>
-    </form>
+      </form>
+
+  </div>
   );
 }
 
-Form.propTypes = {
+Registration.propTypes = {
   onSubmit: PropTypes.func,
   users: PropTypes.arrayOf(PropTypes.object),
 };
