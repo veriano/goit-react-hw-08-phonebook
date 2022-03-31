@@ -7,13 +7,10 @@ import { fetchCurrentUser } from 'redux/auth/auth-operations';
 const Contacts = lazy(() => import('routes/Contacts'));
 const Login = lazy(() => import('routes/Login'));
 const Registration = lazy(() => import('routes/Registration'));
-// import { useFetchContactsQuery, useDeleteContactMutation } from  'redux/contacts/contactsSlice';
 
 
 
 export default function App() {
-  // const { data: contacts } = useFetchContactsQuery();
-  // const [ deleteContact] = useDeleteContactMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,7 +25,7 @@ export default function App() {
             <Route index element={<HomePage />} />
 
             <Route path='/contacts' element={<Contacts />} />
-
+              
             <Route path='/registration' element={<Registration />} />
             
             <Route path='/login' element={<Login />} />
