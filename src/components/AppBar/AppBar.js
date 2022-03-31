@@ -9,10 +9,12 @@ import { Outlet } from 'react-router-dom';
 
 const AppBar = () => {
   // const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+  // console.log(isLoggedIn);
 
   return (
     <>
       <div className={s.AppBar}>
+        {/* { isLoggedIn ? <UserMenu /> : <AuthNav /> } */}
         <Navigation />
         <AuthNav />
         <UserMenu /> 

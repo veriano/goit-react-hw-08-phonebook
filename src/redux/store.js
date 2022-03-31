@@ -14,12 +14,14 @@ import {
   // REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+// import  authReducer from 'redux/auth/auth.slice';
 
-const persistConfig = {
+const PersistConfig = {
   key: 'contacts',
+  // key: 'auth',
   storage,
   blacklist: ['filter'],
-  whitelist: ['token'],
+  // whitelist: ['token'],
 };
 
 // const middleware = [
@@ -32,12 +34,13 @@ const persistConfig = {
 
 const rootReducer = combineReducers;
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(PersistConfig, rootReducer);
 
 
 const store = configureStore({
   reducer: {
     persistedReducer,
+    // auth: persistedReducer(PersistConfig, authReducer),
     contacts,
     [contactApi.reducerPath]: contactApi.reducer,
   },

@@ -25,13 +25,15 @@ export default function Form() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const checkedForName = contacts.find(contact => name.toLowerCase() === contact.name.toLowerCase());
+    if (contacts) {
+      const checkedForName = contacts.find(contact => name.toLowerCase() === contact.name.toLowerCase());
 
-    if (checkedForName) {
-      Notiflix.Notify.info(`${name.toLowerCase()} is already in contacts`);
-      setName('');
-      setPhone('');
-      return;
+      if (checkedForName) {
+        Notiflix.Notify.info(`${name.toLowerCase()} is already in contacts`);
+        setName('');
+        setPhone('');
+        return;
+      }
     }
 
     addContact({ name, phone })

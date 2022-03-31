@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import s from './contactsList-styles.module.css';
 import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/contacts/selectors';
-import { useFetchContactsQuery, useDeleteContactMutation } from  'redux/contacts/contactsSlice';
-
+import { useFetchContactsQuery, useDeleteContactMutation } from 'redux/contacts/contactsSlice';
 
 
 export default function ContactList() {
