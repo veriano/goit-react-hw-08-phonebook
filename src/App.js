@@ -9,7 +9,6 @@ const Login = lazy(() => import('routes/Login'));
 const Registration = lazy(() => import('routes/Registration'));
 
 
-
 export default function App() {
   const dispatch = useDispatch();
 
