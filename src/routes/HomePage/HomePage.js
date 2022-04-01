@@ -1,12 +1,7 @@
 import React from "react";
+import s from './HomePage.module.css';
 
 function HomePage() {
-    return (
-        <>
-            <h1>Приветственная страница нашего сервиса!!!</h1>
-            <h2>Для создания книги контактов пожалуйста зарегистрируйтесь</h2>
-            
-        </>
-    )
+     return <h1 className={s.home}>Добро пожаловать в приложение для создания<br/>Книги контактов!</h1>;
 }
 export default HomePage;

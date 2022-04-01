@@ -6,7 +6,7 @@ import { fetchContacts, deleteContact } from 'redux/contacts/contacts-operations
 
 
 export default function ContactList() {
-
+  const contacts = fetchContacts();
   const filter = useSelector(getFilter);
 
    const getVisibleContacts = () => {

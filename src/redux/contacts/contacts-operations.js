@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { fetchContactsRequest, fetchContactsSuccess, fetchContactsError, addContactRequest, addContactSuccess, addContactError, deleteContactRequest, deleteContactSuccess, deleteContactError } from './phonebook-actions';
+import { fetchContactsRequest, fetchContactsSuccess, fetchContactsError, addContactRequest, addContactSuccess, addContactError, deleteContactRequest, deleteContactSuccess, deleteContactError } from './contacts-actions';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 

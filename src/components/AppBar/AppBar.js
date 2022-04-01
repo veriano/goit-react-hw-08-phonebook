@@ -1,6 +1,6 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
-// import authSelectors from 'redux/auth/auth-selectors';
+import { useSelector } from 'react-redux';
+import { isAuthenticated } from 'redux/auth/auth-selectors';
 import Navigation from 'components/Navigation';
 import s from './AppBar.module.css';
 import AuthNav from 'routes/AuthNav';
@@ -8,16 +8,15 @@ import UserMenu from 'routes/UserMenu';
 import { Outlet } from 'react-router-dom';
 
 const AppBar = () => {
-  // const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
-  // console.log(isLoggedIn);
+  const isLoggedIn = useSelector(isAuthenticated);
 
   return (
     <>
       <div className={s.AppBar}>
-        {/* { isLoggedIn ? <UserMenu /> : <AuthNav /> } */}
         <Navigation />
-        <AuthNav />
-        <UserMenu /> 
+        { isLoggedIn ? <UserMenu /> : <AuthNav /> }
+        {/* <AuthNav />
+        <UserMenu />  */}
       </div>
       <div>
         <Outlet />

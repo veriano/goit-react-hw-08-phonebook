@@ -1,12 +1,12 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-// import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import AppBar from 'components/AppBar';
 import HomePage from 'routes/HomePage';
-import fetchCurrentUser  from 'redux/auth/auth-operations';
-// import authSelectors from 'redux/auth/auth-selectors';
+import { getCurrentUser }  from 'redux/auth/auth-operations';
+import { isAuthenticated } from 'redux/auth/auth-selectors';
 const Contacts = lazy(() => import('routes/Contacts'));
 const Login = lazy(() => import('routes/Login'));
 const Registration = lazy(() => import('routes/Registration'));
@@ -14,10 +14,10 @@ const Registration = lazy(() => import('routes/Registration'));
 
 export default function App() {
   const dispatch = useDispatch();
-  // const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+  const isLoggedIn = useSelector(isAuthenticated);
 
   useEffect(() => {
-    dispatch(fetchCurrentUser());
+    dispatch(getCurrentUser());
   }, [dispatch]);
 
   return (
@@ -27,15 +27,11 @@ export default function App() {
           <Route path="/" element={<AppBar />}>
             <Route index element={<HomePage />} />
 
-
-            <Route path='/contacts' element={<Contacts />} />
-            
-            {/* <Route path='/contacts'>
-              {isLoggedIn ? <Contacts />
+            {isLoggedIn ?
+              <Route path='/contacts' element={<Contacts />} /> 
               :
-              <Navigate to="/login" />
-              }
-            </Route> */}
+              <Route render={() => <Navigate to="/login" />} />
+            }
               
             <Route path='/registration' element={<Registration />} />
             

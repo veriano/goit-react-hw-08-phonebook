@@ -3,10 +3,10 @@ import Form from 'components/form';
 import Filter from 'components/filter';
 import ContactsList from 'components/contacts-list';
 import Circles from 'components/spinner';
-import { useFetchContactsQuery } from  'redux/contacts/contacts-operations';
+import { fetchContacts } from  'redux/contacts/contacts-operations';
 
 function Contacts() {
-  const {data: contacts, isFetching } = useFetchContactsQuery();
+  const {data: contacts, isFetching } = fetchContacts();
 
     return(
         <>
