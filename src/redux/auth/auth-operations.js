@@ -1,7 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 import authActions from './auth-actions';
-// import { getUserName } from './auth-selectors';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -19,7 +18,6 @@ const register = userData => async dispatch => {
 
   try {
     const { data } = await axios.post('/users/signup', userData);
-    console.log(data);
     token.set(data.token);
     Notiflix.Notify.success(`Добро пожаловать ${data.user.name}!`);
     dispatch(authActions.registerSuccess(data))

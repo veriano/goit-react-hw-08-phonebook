@@ -21,11 +21,11 @@ export default function ContactList() {
 
   return (
     <ul className={s.list}>
-      {filtered && filtered.map(({ name, phone, id }) => {
+      {filtered && filtered.map(({ name, number, id }) => {
         return (
           <li key={id} className={s.item}>
             <p className={s.p}>
-              {name} <span className={s.span}>{phone}</span>
+              {name} <span className={s.span}>{number}</span>
             </p>
             <button
               type="button"
