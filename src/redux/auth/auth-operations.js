@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 import authActions from './auth-actions';
-import { getUserName } from './auth-selectors';
+// import { getUserName } from './auth-selectors';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -18,11 +18,13 @@ const register = userData => async dispatch => {
   dispatch(authActions.registerRequest())
 
   try {
-    const response = await axios.post('/users/signup', userData);
-    token.set(response.data.token);
-    Notiflix.Notify.success(`Добро пожаловать ${getUserName}!`);
-    dispatch(authActions.registerSuccess(response.data))
+    const { data } = await axios.post('/users/signup', userData);
+    console.log(data);
+    token.set(data.token);
+    Notiflix.Notify.success(`Добро пожаловать ${data.user.name}!`);
+    dispatch(authActions.registerSuccess(data))
   } catch (error) {
+    Notiflix.Notify.failure('Что-то пошло не так, регистрация так и не состоялась');
     dispatch(authActions.registerError(error.message))
   }
 }
@@ -31,10 +33,12 @@ const login = userData => async dispatch => {
   dispatch(authActions.loginRequest());
 
   try {
-    const response = await axios.post('/users/login', userData);
-    token.set(response.data.token);
-    dispatch(authActions.loginSuccess(response.data))
+    const { data } = await axios.post('/users/login', userData);
+    token.set(data.token);
+    Notiflix.Notify.success('Вы успешно залогинились!')
+    dispatch(authActions.loginSuccess(data))
   } catch (error) {
+    Notiflix.Notify.failure('Операция логина не выпонена,проверьте правильность ввода данных')
     dispatch(authActions.loginError(error.message))
   }
 }
@@ -44,8 +48,10 @@ const logout = () => async dispatch => {
   try {
     await axios.post('users/logout');
     token.unset();
+    Notiflix.Notify.info('Вы успешно разлогинились')
     dispatch(authActions.logoutSuccess())
   } catch (error) {
+    Notiflix.Notify.failure('Вам не удалось разлогиниться, проверьте введённые данные вашей почты')
     dispatch(authActions.logoutError(error.message))
   }
 }

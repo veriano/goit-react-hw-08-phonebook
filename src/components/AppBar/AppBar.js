@@ -15,8 +15,6 @@ const AppBar = () => {
       <div className={s.AppBar}>
         <Navigation />
         { isLoggedIn ? <UserMenu /> : <AuthNav /> }
-        {/* <AuthNav />
-        <UserMenu />  */}
       </div>
       <div>
         <Outlet />
