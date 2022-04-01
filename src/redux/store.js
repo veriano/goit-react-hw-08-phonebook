@@ -1,56 +1,41 @@
-import contacts from './contacts/reducers';
-import combineReducers from './contacts/reducers';
-import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
-import { contactApi } from './contacts/contactsSlice';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
-  // FLUSH,
-  // REHYDRATE,
-  // PAUSE,
-  // PERSIST,
-  // PURGE,
-  // REGISTER,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-// import  authReducer from 'redux/auth/auth.slice';
+import phonebookReducer from './phonebook/phonebook-reducer';
+import authReducer from './auth/auth-reducer';
 
-const PersistConfig = {
-  key: 'contacts',
-  // key: 'auth',
+const middleware = [
+  ...getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+];
+
+const authPersistConfig = {
+  key: 'auth',
   storage,
-  blacklist: ['filter'],
-  // whitelist: ['token'],
+  whitelist: ['token'],
 };
-
-// const middleware = [
-//   getDefaultMiddleware({
-//     serializableCheck: {
-//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//     },
-//   }),
-// ];
-
-const rootReducer = combineReducers;
-
-const persistedReducer = persistReducer(PersistConfig, rootReducer);
-
 
 const store = configureStore({
   reducer: {
-    persistedReducer,
-    // auth: persistedReducer(PersistConfig, authReducer),
-    contacts,
-    [contactApi.reducerPath]: contactApi.reducer,
+    auth: persistReducer(authPersistConfig, authReducer),
+    contacts: phonebookReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(contactApi.middleware),
-})
+  middleware,
+  devTools: process.env.NODE_ENV === 'development',
+});
 
 const persistor = persistStore(store);
 
-setupListeners(store.dispatch)
-
-export { store, persistor };
-
+export  { store, persistor };

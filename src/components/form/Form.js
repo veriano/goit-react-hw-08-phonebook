@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Notiflix from 'notiflix';
-import { useAddContactMutation } from 'redux/contacts/contactsSlice';
 import s from './form-styles.module.css';
-import { useFetchContactsQuery } from  'redux/contacts/contactsSlice';
+import { addContact, fetchContacts } from 'redux/contacts/contacts-operations';
 
 
 
 export default function Form() {
-  const { data: contacts } = useFetchContactsQuery();
-
-  const [addContact] = useAddContactMutation();
+  const { data: contacts } = fetchContacts();
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
