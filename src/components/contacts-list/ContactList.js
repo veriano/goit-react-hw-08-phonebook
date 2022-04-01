@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import s from './contactsList-styles.module.css';
 import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/contacts/contacts-selectors';
-import { fetchContacts, deleteContact } from 'redux/contacts/contacts-operations';
+import { deleteContact } from 'redux/contacts/contacts-operations';
+import { getContacts } from 'redux/contacts/contacts-selectors';
 
 
 export default function ContactList() {
-  const contacts = fetchContacts();
+  const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
    const getVisibleContacts = () => {

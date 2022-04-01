@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 import { fetchContactsRequest, fetchContactsSuccess, fetchContactsError, addContactRequest, addContactSuccess, addContactError, deleteContactRequest, deleteContactSuccess, deleteContactError } from './contacts-actions';
 
@@ -12,6 +13,7 @@ export const fetchContacts = () => dispatch => {
 }
 
 export const addContact = ({ name, number }) => dispatch => {
+  
   const contact = {
     name,
     number

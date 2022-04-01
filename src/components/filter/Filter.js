@@ -11,7 +11,7 @@ export default function Filter () {
 
   return (
     <div className={s.div}>
-      <label className={s.label}>Find contacts by name</label>
+      <label className={s.label}>Поиск контакта по имени</label>
       <input
         onChange={(e) => dispatch(changeFilter.filterChange(e.target.value))}
         value={filterValue}

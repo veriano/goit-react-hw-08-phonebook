@@ -1,23 +1,25 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Notiflix from 'notiflix';
 import s from './form-styles.module.css';
-import { addContact, fetchContacts } from 'redux/contacts/contacts-operations';
+import { addContact } from 'redux/contacts/contacts-operations';
+import { getContacts } from 'redux/contacts/contacts-selectors';
 
 
 
 export default function Form() {
-  const { data: contacts } = fetchContacts();
+  const contacts = useSelector(getContacts);
 
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const changeName = event => {
     setName(event.target.value);
   };
 
   const changeNumber = event => {
-    setPhone(event.target.value);
+    setNumber(event.target.value);
   };
 
   const handleSubmit = e => {
@@ -26,24 +28,24 @@ export default function Form() {
       const checkedForName = contacts.find(contact => name.toLowerCase() === contact.name.toLowerCase());
 
       if (checkedForName) {
-        Notiflix.Notify.info(`${name.toLowerCase()} is already in contacts`);
+        Notiflix.Notify.info(`${name.toLowerCase()} уже существует в книге контактов`);
         setName('');
-        setPhone('');
+        setNumber('');
         return;
       }
     }
 
-    addContact({ name, phone })
+    addContact({ name, number })
       
     setName('');
-    setPhone('');
+    setNumber('');
 
     Notiflix.Notify.success('Contact has been created!');
   }
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <label className={s.label}>Name</label>
+      <label className={s.label}>Имя</label>
       <input
         className={s.input}
         type="text"
@@ -54,7 +56,7 @@ export default function Form() {
         value={name}
         onChange={changeName}
       />
-      <label className={s.label}>Number</label>
+      <label className={s.label}>Номер телефона</label>
       <input
         className={s.input}
         type="tel"
@@ -62,11 +64,11 @@ export default function Form() {
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
         required
-        value={phone}
+        value={number}
         onChange={changeNumber}
       />
       <button type="submit" className={s.btn}>
-        Add to contacts
+        Добавить контакт
       </button>
     </form>
   );
