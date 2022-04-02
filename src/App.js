@@ -24,7 +24,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<AppBar />}>
 
-            <Route index element={<HomePage />} />
+            <Route index element={<PublicRoute restricted>
+              <HomePage />
+            </PublicRoute> } />
 
             <Route path="/contacts" element={<PrivateRoute>
                 <Contacts />

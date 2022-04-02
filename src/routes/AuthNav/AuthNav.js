@@ -14,7 +14,7 @@ function AuthNav () {
                   </li>
                   <li>
             <NavLink to="/login" className={s.Base}>
-              <b>Логин</b>
+              <b>Войти</b>
             </NavLink>
           </li>
         </ul>

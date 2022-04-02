@@ -22,7 +22,7 @@ const register = userData => async dispatch => {
     Notiflix.Notify.success(`Добро пожаловать ${data.user.name}!`);
     dispatch(authActions.registerSuccess(data))
   } catch (error) {
-    Notiflix.Notify.failure('Что-то пошло не так, регистрация так и не состоялась');
+    Notiflix.Notify.failure('Что-то пошло не так, попробуйте ещё раз');
     dispatch(authActions.registerError(error.message))
   }
 }
@@ -33,10 +33,10 @@ const login = userData => async dispatch => {
   try {
     const { data } = await axios.post('/users/login', userData);
     token.set(data.token);
-    Notiflix.Notify.success('Вы успешно залогинились!')
+    Notiflix.Notify.success('Вход успешно выполнен!')
     dispatch(authActions.loginSuccess(data))
   } catch (error) {
-    Notiflix.Notify.failure('Операция логина не выпонена,проверьте правильность ввода данных')
+    Notiflix.Notify.failure('Операция логина не выпонена,проверьте правильность ввода данных или вы ёще не зарегистрировались')
     dispatch(authActions.loginError(error.message))
   }
 }
@@ -46,10 +46,10 @@ const logout = () => async dispatch => {
   try {
     await axios.post('users/logout');
     token.unset();
-    Notiflix.Notify.info('Вы успешно разлогинились')
+    Notiflix.Notify.info('Выход успешно выполнен')
     dispatch(authActions.logoutSuccess())
   } catch (error) {
-    Notiflix.Notify.failure('Вам не удалось разлогиниться, проверьте введённые данные вашей почты')
+    Notiflix.Notify.failure('Вам не удалось выйти, проверьте введённые данные вашей почты')
     dispatch(authActions.logoutError(error.message))
   }
 }
