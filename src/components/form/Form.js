@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Notiflix from 'notiflix';
 import s from './form-styles.module.css';
@@ -9,6 +9,7 @@ import { getContacts } from 'redux/contacts/contacts-selectors';
 
 
 export default function Form() {
+  const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
   const [name, setName] = useState('');
@@ -25,22 +26,30 @@ export default function Form() {
   const handleSubmit = e => {
     e.preventDefault();
     if (contacts) {
-      const checkedForName = contacts.find(contact => name.toLowerCase() === contact.name.toLowerCase());
+      const checkForName = contacts.find(contact => name.toLowerCase() === contact.name.toLowerCase());
+      const checkForNumber = contacts.find(contact => contact.number === number);
 
-      if (checkedForName) {
-        Notiflix.Notify.info(`${name.toLowerCase()} уже существует в книге контактов`);
+      if (checkForName) {
+        Notiflix.Notify.failure(`${name.toLowerCase()} уже существует в книге контактов`);
+        setName('');
+        setNumber('');
+        return;
+      }
+
+      if (checkForNumber) {
+        Notiflix.Notify.failure('Контакт с таким номером телефона уже существует в книге контактов');
         setName('');
         setNumber('');
         return;
       }
     }
 
-    addContact({ name, number })
+    dispatch(addContact({ name, number }));
       
     setName('');
     setNumber('');
 
-    Notiflix.Notify.success('Contact has been created!');
+    Notiflix.Notify.success('Контакт успешно создан!');
   }
 
   return (

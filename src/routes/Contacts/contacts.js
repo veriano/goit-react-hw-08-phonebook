@@ -8,12 +8,13 @@ import { getIsLoading, getContacts } from 'redux/contacts/contacts-selectors';
 
 function Contacts() {
     const contacts = useSelector(getContacts);
+    const isFetching = useSelector(getIsLoading);
 
     return(
         <>
             <Form />
             <Filter />
-            { getIsLoading && <Circles /> }
+            { isFetching && <Circles /> }
             { contacts && <ContactsList /> }
         </>
     )
