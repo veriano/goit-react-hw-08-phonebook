@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import s from './contactsList-styles.module.css';
-import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/contacts/contacts-selectors';
 import { deleteContact } from 'redux/contacts/contacts-operations';
 import { getContacts } from 'redux/contacts/contacts-selectors';
 
 
 export default function ContactList() {
+  const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
@@ -29,10 +29,10 @@ export default function ContactList() {
             </p>
             <button
               type="button"
-              onClick={() => deleteContact(id)}
+              onClick={() => dispatch(deleteContact(id))}
               className={s.btn}
             >
-              Delete
+              Удалить
             </button>
           </li>
         );
@@ -41,8 +41,6 @@ export default function ContactList() {
   );
 }
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object),
-  onDelete: PropTypes.func,
-};
+
+
 
