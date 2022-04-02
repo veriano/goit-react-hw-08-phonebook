@@ -7,6 +7,7 @@ import Circles from 'components/spinner';
 import { getIsLoading, getContacts } from 'redux/contacts/contacts-selectors';
 import { fetchContacts } from 'redux/contacts/contacts-operations';
 
+
 function Contacts() {
     const dispatch = useDispatch();
     const contacts = useSelector(getContacts);
