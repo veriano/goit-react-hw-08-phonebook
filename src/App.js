@@ -30,9 +30,11 @@ export default function App() {
 
             <Route path="/contacts" element={<PrivateRoute>
                 <Contacts />
-              </PrivateRoute> } />
+            </PrivateRoute> } />
 
-            <Route path='/registration' element={<Registration />} />
+            <Route path='/registration' element={<PublicRoute>
+              <Registration />
+            </PublicRoute> } />
 
             <Route path='/login' element={<PublicRoute restricted>
               <Login />
