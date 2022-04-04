@@ -33,11 +33,13 @@ export default function App() {
                 <Contacts />
             </PrivateRoute> } />
 
-            <Route path='/registration' element={<Registration />} />
+            <Route path='/registration' element={<PublicRoute restricted>
+              <Registration />
+            </PublicRoute> } />
 
             <Route path='/login' element={<PublicRoute restricted>
               <Login />
-            </PublicRoute>} />
+            </PublicRoute> } />
             
             <Route path='*' element={<NoMatch />} />
             
