@@ -1,0 +1,14 @@
+.container {
+    margin-left: 50px;
+}
+
+.title {
+    font-size: 35px;
+    color:blueviolet;
+}
+
+.text {
+    font-size: 35px;
+    color:blueviolet;
+    text-decoration: none;
+}

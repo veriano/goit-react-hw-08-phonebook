@@ -9,10 +9,6 @@ export default function PublicRoute({ children, restricted = false }) {
   const isLoggedIn = useSelector(isAuthenticated);
   const shouldNavigate = isLoggedIn && restricted;
 
-  if (isLoggedIn) {
-    return <Navigate to="/login" replace={true} />;
-  }
-
   if (shouldNavigate) {
     return <Navigate to="/contacts" replace={true} />;
   }

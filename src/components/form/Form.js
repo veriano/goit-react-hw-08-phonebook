@@ -37,7 +37,7 @@ export default function Form() {
       }
 
       if (checkForNumber) {
-        Notiflix.Notify.failure('Контакт с таким номером телефона уже существует в книге контактов');
+        Notiflix.Notify.failure('Такой номер телефона уже существует в книге контактов');
         setName('');
         setNumber('');
         return;

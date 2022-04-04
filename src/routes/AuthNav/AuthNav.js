@@ -1,11 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import s from './AuthNav.module.css';
-import { isAuthenticated } from 'redux/auth/auth-selectors';
 
 function AuthNav() {
-  const isLoggedIn = useSelector(isAuthenticated);
 
   return (
     <>
@@ -16,11 +13,9 @@ function AuthNav() {
               <b>Регистрация</b>
             </NavLink>
                   
-            {isLoggedIn &&
-              <NavLink to="/login" className={s.Base}>
-                <b>Войти</b>
-              </NavLink>
-            }
+            <NavLink to="/login" className={s.Base}>
+              <b>Войти</b>
+            </NavLink>
           </li>
         </ul>
       </nav>

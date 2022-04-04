@@ -6,6 +6,7 @@ import HomePage from 'routes/HomePage';
 import { getCurrentUser } from 'redux/auth/auth-operations';
 import PublicRoute from 'routes/PublicRoute';
 import PrivateRoute from 'routes/PrivateRoute';
+import NoMatch from 'routes/NoMatch';
 const Contacts = lazy(() => import('routes/Contacts'));
 const Login = lazy(() => import('routes/Login'));
 const Registration = lazy(() => import('routes/Registration'));
@@ -32,13 +33,13 @@ export default function App() {
                 <Contacts />
             </PrivateRoute> } />
 
-            <Route path='/registration' element={<PublicRoute>
-              <Registration />
-            </PublicRoute> } />
+            <Route path='/registration' element={<Registration />} />
 
             <Route path='/login' element={<PublicRoute restricted>
               <Login />
-            </PublicRoute> } />
+            </PublicRoute>} />
+            
+            <Route path='*' element={<NoMatch />} />
             
           </Route>
         </Routes>
